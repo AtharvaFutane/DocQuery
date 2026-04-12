@@ -1,0 +1,509 @@
+@import "tailwindcss";
+
+/* ============ Fonts ============ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============ Base Styles ============ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* ============ Light Mode — Cool Slate + Indigo Accents ============ */
+:root {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Borders */
+  --border-subtle: #cbd5e1;
+  --border-strong: #6366f1;
+
+  /* Glass */
+  --glass-bg: rgba(248, 250, 252, 0.7);
+  --glass-border: rgba(99, 102, 241, 0.15);
+  --glass-shadow: 0 4px 30px rgba(99, 102, 241, 0.08);
+
+  /* Accents — Indigo + Cyan */
+  --accent-primary: #6366f1;
+  --accent-secondary: #06b6d4;
+  --accent-text: #ffffff;
+  --accent-glow: rgba(99, 102, 241, 0.15);
+}
+
+/* ============ Dark Mode — Deep Space + Neon Accents ============ */
+.dark {
+  color-scheme: dark;
+
+  /* Backgrounds */
+  --bg-primary: #0c0a1a;
+  --bg-secondary: #12102a;
+  --bg-tertiary: #1a1838;
+
+  /* Text */
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+
+  /* Borders */
+  --border-subtle: #2d2b52;
+  --border-strong: #818cf8;
+
+  /* Glass */
+  --glass-bg: rgba(18, 16, 42, 0.7);
+  --glass-border: rgba(129, 140, 248, 0.2);
+  --glass-shadow: 0 4px 30px rgba(99, 102, 241, 0.1);
+
+  /* Accents */
+  --accent-primary: #818cf8;
+  --accent-secondary: #22d3ee;
+  --accent-text: #0c0a1a;
+  --accent-glow: rgba(129, 140, 248, 0.2);
+}
+
+/* ============ Utility Classes for Theme ============ */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* ============ Glassmorphism ============ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 50;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 20px 40px var(--accent-glow);
+}
+
+/* ============ Gradient Backgrounds ============ */
+.mesh-bg {
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.06) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, rgba(6, 182, 212, 0.04) 0px, transparent 50%);
+}
+
+.dark .mesh-bg {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+    radial-gradient(at 60% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 50%);
+}
+
+/* ============ Button Styles ============ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--accent-text);
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 10px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--accent-glow);
+}
+
+/* ============ Charts Colors ============ */
+:root {
+  --chart-1: #6366f1;
+  --chart-2: #06b6d4;
+  --chart-3: #f43f5e;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+}
+
+/* ============ Scrollbar ============ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ============ PDF Viewer Sidebar ============ */
+.pdf-viewer-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 450px;
+  max-width: 90vw;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border-subtle);
+  box-shadow: -10px 0 30px rgba(99, 102, 241, 0.08);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.dark .pdf-viewer-sidebar {
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.pdf-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+}
+
+.pdf-viewer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.pdf-viewer-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.pdf-viewer-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.pdf-citation-info {
+  padding: 12px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.citation-source {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.citation-source strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.citation-page {
+  font-size: 12px;
+  color: var(--accent-text);
+  background: var(--accent-primary);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.citation-snippet {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
+  padding: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.pdf-viewer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 10px;
+}
+
+.page-controls,
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-controls button,
+.zoom-controls button {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.page-controls button:hover:not(:disabled),
+.zoom-controls button:hover:not(:disabled) {
+  background: var(--accent-glow);
+  border-color: var(--accent-primary);
+}
+
+.page-controls button:disabled,
+.zoom-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator,
+.zoom-indicator {
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-width: 60px;
+  text-align: center;
+}
+
+.open-external {
+  color: var(--text-secondary);
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.open-external:hover {
+  color: var(--accent-primary);
+  background: var(--accent-glow);
+}
+
+.pdf-viewer-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+}
+
+.pdf-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* View Analytics Button in Document List */
+.doc-analytics-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-analytics-btn:hover {
+  background: var(--accent-primary);
+  color: var(--accent-text);
+}
+
+/* Citation Click Styles */
+.citation-link {
+  cursor: pointer;
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  transition: color 0.2s ease;
+}
+
+.citation-link:hover {
+  color: var(--accent-secondary);
+}
+
+/* PDF Error State */
+.pdf-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 20px;
+}
+
+.pdf-error p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.retry-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--accent-text);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.open-external-link {
+  font-size: 12px;
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
+
+/* ============ Animations ============ */
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-in {
+  animation: float-in 0.4s ease-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px 8px var(--accent-glow);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
