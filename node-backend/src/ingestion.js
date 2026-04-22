@@ -1,5 +1,5 @@
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { HNSWLib } from "@langchain/community/vectorstores/hnswlib";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { HuggingFaceTransformersEmbeddings } from "@langchain/community/embeddings/hf_transformers";
 import fs from "fs";
 import path from "path";
@@ -21,19 +21,14 @@ export async function getEmbeddings() {
 }
 
 export async function getVectorStore() {
-    if (vectorStore) return vectorStore;
-    
-    if (fs.existsSync(VECTOR_STORE_PATH)) {
-        vectorStore = await HNSWLib.load(VECTOR_STORE_PATH, await getEmbeddings());
+    if (!vectorStore) {
+        vectorStore = new MemoryVectorStore(await getEmbeddings());
     }
     return vectorStore;
 }
 
 export async function deleteVectorStore() {
     vectorStore = null;
-    if (fs.existsSync(VECTOR_STORE_PATH)) {
-        fs.rmSync(VECTOR_STORE_PATH, { recursive: true, force: true });
-    }
 }
 
 export async function ingestFile(filePath) {
@@ -61,13 +56,11 @@ export async function ingestFile(filePath) {
     const splitDocs = await textSplitter.splitDocuments(docs);
     
     const emb = await getEmbeddings();
-    if (!vectorStore && !fs.existsSync(VECTOR_STORE_PATH)) {
-        vectorStore = await HNSWLib.fromDocuments(splitDocs, emb);
+    if (!vectorStore) {
+        vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, emb);
     } else {
-        const store = await getVectorStore();
-        await store.addDocuments(splitDocs);
+        await vectorStore.addDocuments(splitDocs);
     }
-    await vectorStore.save(VECTOR_STORE_PATH);
     
     return {
         chunk_count: splitDocs.length,

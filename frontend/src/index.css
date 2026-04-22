@@ -26,7 +26,7 @@ h6 {
   font-weight: 700;
 }
 
-/* ============ Light Mode — Cool Slate + Indigo Accents ============ */
+/* ============ Light Mode — Emerald/Teal Accents ============ */
 :root {
   color-scheme: light;
 
@@ -42,48 +42,48 @@ h6 {
 
   /* Borders */
   --border-subtle: #cbd5e1;
-  --border-strong: #6366f1;
+  --border-strong: #10b981;
 
   /* Glass */
   --glass-bg: rgba(248, 250, 252, 0.7);
-  --glass-border: rgba(99, 102, 241, 0.15);
-  --glass-shadow: 0 4px 30px rgba(99, 102, 241, 0.08);
+  --glass-border: rgba(16, 185, 129, 0.15);
+  --glass-shadow: 0 4px 30px rgba(16, 185, 129, 0.08);
 
-  /* Accents — Indigo + Cyan */
-  --accent-primary: #6366f1;
+  /* Accents — Emerald + Cyan */
+  --accent-primary: #10b981;
   --accent-secondary: #06b6d4;
   --accent-text: #ffffff;
-  --accent-glow: rgba(99, 102, 241, 0.15);
+  --accent-glow: rgba(16, 185, 129, 0.15);
 }
 
-/* ============ Dark Mode — Deep Space + Neon Accents ============ */
+/* ============ Dark Mode — Charcoal + Emerald/Cyan ============ */
 .dark {
   color-scheme: dark;
 
   /* Backgrounds */
-  --bg-primary: #0c0a1a;
-  --bg-secondary: #12102a;
-  --bg-tertiary: #1a1838;
+  --bg-primary: #0a0a0a; /* Deep obsidian */
+  --bg-secondary: #121212;
+  --bg-tertiary: #1a1a1a;
 
   /* Text */
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #475569;
+  --text-primary: #f8fafc;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
 
   /* Borders */
-  --border-subtle: #2d2b52;
-  --border-strong: #818cf8;
+  --border-subtle: #27272a;
+  --border-strong: #10b981; /* Emerald */
 
   /* Glass */
-  --glass-bg: rgba(18, 16, 42, 0.7);
-  --glass-border: rgba(129, 140, 248, 0.2);
-  --glass-shadow: 0 4px 30px rgba(99, 102, 241, 0.1);
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(16, 185, 129, 0.2);
+  --glass-shadow: 0 4px 30px rgba(16, 185, 129, 0.1);
 
   /* Accents */
-  --accent-primary: #818cf8;
-  --accent-secondary: #22d3ee;
-  --accent-text: #0c0a1a;
-  --accent-glow: rgba(129, 140, 248, 0.2);
+  --accent-primary: #10b981; /* MERN Green */
+  --accent-secondary: #06b6d4; /* Vibrant Cyan */
+  --accent-text: #0a0a0a;
+  --accent-glow: rgba(16, 185, 129, 0.25);
 }
 
 /* ============ Utility Classes for Theme ============ */
@@ -136,17 +136,17 @@ h6 {
 .mesh-bg {
   background-color: var(--bg-primary);
   background-image:
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
     radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.06) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
     radial-gradient(at 0% 80%, rgba(6, 182, 212, 0.04) 0px, transparent 50%);
 }
 
 .dark .mesh-bg {
   background-image:
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
-    radial-gradient(at 60% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.10) 0px, transparent 50%),
+    radial-gradient(at 60% 100%, rgba(5, 150, 105, 0.08) 0px, transparent 50%);
 }
 
 /* ============ Button Styles ============ */

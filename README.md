@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
   <img src="https://img.shields.io/badge/LangChain-121212?style=for-the-badge&logo=chainlink&logoColor=white" alt="LangChain">
   <img src="https://img.shields.io/badge/Grok_AI-000000?style=for-the-badge&logo=x&logoColor=white" alt="Grok">
-  <img src="https://img.shields.io/badge/FAISS-00599C?style=for-the-badge&logo=meta&logoColor=white" alt="FAISS">
 </p>
 
 <h1 align="center">📄 DocQuery - Document Intelligence Platform</h1>
@@ -72,20 +72,20 @@ Financial professionals spend hours manually extracting data from lengthy report
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │  ┌──────────────┐     ┌──────────────┐     ┌──────────────────────┐ │
-│  │   Frontend   │────▶│   FastAPI    │────▶│   Document Processor  │ │
-│  │   (React)    │     │   Backend    │     │   (PDF/DOCX/XLSX)     │ │
+│  │   Frontend   │────▶│ Express.js   │────▶│   Document Processor  │ │
+│  │   (React)    │     │   Backend    │     │   (pdf-parse/mammoth) │ │
 │  └──────────────┘     └──────────────┘     └──────────────────────┘ │
 │         │                    │                        │              │
 │         │                    ▼                        ▼              │
 │         │             ┌──────────────┐     ┌──────────────────────┐ │
-│         │             │  RAG Pipeline │────▶│  FAISS Vector Store  │ │
-│         │             │  (LangChain)  │     │  (HuggingFace Emb)   │ │
+│         │             │  RAG Pipeline │────▶│ MongoDB & HNSWLib  │ │
+│         │             │ (LangChain.js)│     │  (Vector Database)   │ │
 │         │             └──────────────┘     └──────────────────────┘ │
 │         │                    │                                       │
 │         │                    ▼                                       │
 │         │             ┌──────────────┐     ┌──────────────────────┐ │
 │         └────────────▶│   Analytics  │────▶│   Grok (xAI)         │ │
-│                       │    Engine    │     │   via OpenAI API     │ │
+│                       │    Engine    │     │   via Groq API       │ │
 │                       └──────────────┘     └──────────────────────┘ │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
@@ -96,11 +96,11 @@ Financial professionals spend hours manually extracting data from lengthy report
 | Layer | Technology |
 |-------|------------|
 | **Frontend** | React 19, TypeScript, TailwindCSS, Framer Motion, Recharts |
-| **Backend** | FastAPI, Python 3.11+, Uvicorn |
-| **AI/ML** | LangChain, xAI Grok (via OpenAI-compatible API), HuggingFace Embeddings |
-| **Vector Store** | FAISS (Facebook AI Similarity Search) |
-| **Document Processing** | PyMuPDF, pdfplumber, pytesseract, python-docx, openpyxl |
-| **Deployment** | Docker, AWS Amplify, AWS Elastic Beanstalk |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB (Mongoose), HNSWLib (Vector Store) |
+| **AI/ML** | LangChain.js, xAI Grok (via Groq API SDK), HuggingFace Transformers |
+| **Document Processing** | pdf-parse, mammoth, xlsx |
+| **Deployment** | Vercel, AWS Amplify |
 
 ---
 
@@ -108,29 +108,26 @@ Financial professionals spend hours manually extracting data from lengthy report
 
 ```
 DocQuery/
-├── backend/
-│   ├── main.py              # FastAPI application with all endpoints
-│   └── vectorstore/         # FAISS index storage
+├── node-backend/
+│   ├── src/
+│   │   ├── index.js             # Express.js application with all endpoints
+│   │   ├── ragPipeline.js       # Enhanced RAG chain with citations
+│   │   ├── analyticsEngine.js   # AI-powered analytics generation (Groq)
+│   │   ├── ingestion.js         # Document ingestion pipeline
+│   │   └── models/              # Mongoose database schemas
+│   ├── .env                     # Backend environment variables
+│   └── package.json
 ├── frontend/
 │   ├── src/
 │   │   ├── components/      # React components
 │   │   │   ├── ChatInterface.tsx
 │   │   │   ├── FileUploader.tsx
 │   │   │   ├── PDFViewer.tsx
-│   │   │   ├── AnalyticsGrid.tsx
-│   │   │   └── charts/      # Chart components
+│   │   │   └── AnalyticsGrid.tsx
 │   │   ├── api.ts           # API client
 │   │   └── App.tsx          # Main application
+│   ├── .env.production      # Production environment vars
 │   └── package.json
-├── src/
-│   ├── rag_pipeline.py      # Enhanced RAG chain with citations
-│   ├── document_processor.py # Multi-format document processing
-│   ├── analytics_engine.py  # AI-powered analytics generation
-│   ├── ingestion.py         # Document ingestion pipeline
-│   └── analytics_storage.py # Analytics caching
-├── Dockerfile               # Docker configuration
-├── requirements.txt         # Python dependencies
-└── amplify.yml             # AWS Amplify build config
 ```
 
 ---
@@ -138,31 +135,26 @@ DocQuery/
 ## 🚀 Installation
 
 ### Prerequisites
-- Python 3.11+
 - Node.js 18+
-- xAI API Key (for Grok) — Get one at [console.x.ai](https://console.x.ai)
-- Tesseract OCR (optional, for image text extraction)
+- MongoDB (Local instance or Atlas connection)
+- xAI/Groq API Key — Get one at [console.groq.com](https://console.groq.com)
 
 ### Backend Setup
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/DocQuery.git
-cd DocQuery
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+cd DocQuery/node-backend
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
 
 # Set up environment variables
 cp .env.example .env
-# Edit .env and add your XAI_API_KEY
+# Edit .env and add your GROQ_API_KEY and MONGO_URI
 
 # Run the backend
-uvicorn backend.main:app --reload --port 8000
+npm start
 ```
 
 ### Frontend Setup
