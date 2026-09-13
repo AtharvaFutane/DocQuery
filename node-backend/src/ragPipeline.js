@@ -57,7 +57,8 @@ Answer:
   const citations = docs.map(d => ({
     source: d.metadata.source,
     page_number: d.metadata.page,
-    snippet: d.pageContent.substring(0, 150) + '...',
+    doc_id: d.metadata.doc_id,
+    text_snippet: d.pageContent.substring(0, 150) + '...',
   }));
 
   // Update history

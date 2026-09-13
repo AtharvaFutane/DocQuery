@@ -3,6 +3,17 @@
 /* ============ Fonts ============ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+/* ============ Tailwind v4 Theme ============ */
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Border color tokens for Tailwind utilities like border-subtle, border-strong */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-border-custom: var(--border-subtle);
+}
+
 /* ============ Base Styles ============ */
 * {
   box-sizing: border-box;

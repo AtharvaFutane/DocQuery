@@ -1,5 +1,6 @@
 import { ChatGroq } from '@langchain/groq';
 import { PromptTemplate } from '@langchain/core/prompts';
+import fs from 'fs';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -68,18 +69,65 @@ ONLY output the valid JSON. No markdown formatting or extra text.
     }
     
     const parsed = JSON.parse(jsonStr);
+
+    // Normalize chart objects to match frontend expectations
+    if (parsed.charts && Array.isArray(parsed.charts)) {
+      parsed.charts = parsed.charts.map(chart => {
+        // Normalize chart type field: AI may return "type" but frontend expects "chart_type"
+        if (chart.type && !chart.chart_type) {
+          chart.chart_type = chart.type;
+          delete chart.type;
+        }
+
+        // Ensure x_key exists (default to "name")
+        if (!chart.x_key) {
+          chart.x_key = chart.xKey || 'name';
+        }
+
+        // Ensure y_keys array exists
+        if (!chart.y_keys) {
+          if (chart.yKeys) {
+            chart.y_keys = chart.yKeys;
+          } else if (chart.dataKey) {
+            chart.y_keys = [chart.dataKey];
+          } else {
+            chart.y_keys = ['value'];
+          }
+        }
+
+        // Clean up non-standard fields
+        delete chart.dataKey;
+        delete chart.xKey;
+        delete chart.yKeys;
+
+        return chart;
+      });
+    }
+
+    // Normalize metrics to ensure change_type exists
+    if (parsed.metrics && Array.isArray(parsed.metrics)) {
+      parsed.metrics = parsed.metrics.map(metric => ({
+        label: metric.label || '',
+        value: metric.value || '',
+        change: metric.change || '',
+        change_type: metric.change_type || metric.changeType || 'neutral',
+      }));
+    }
+
     return parsed;
 
   } catch (err) {
     console.error('Analytics Generation Error:', err);
     
     // Debug logging to file
-    import('fs').then(fs => {
-      fs.appendFileSync('groq_debug.txt', '\\n\\nERROR: ' + err.toString() + '\\n' + (err.stack || ''));
+    try {
+      fs.appendFileSync('groq_debug.txt', '\n\nERROR: ' + err.toString() + '\n' + (err.stack || ''));
       if (err.response) {
-         fs.appendFileSync('groq_debug.txt', '\\nRESPONSE: ' + JSON.stringify(err.response));
+        fs.appendFileSync('groq_debug.txt', '\nRESPONSE: ' + JSON.stringify(err.response));
       }
-    });
+    } catch (_fsErr) {
+      // Ignore file write errors in production
+    }
 
     // Fallback default structure
     return {

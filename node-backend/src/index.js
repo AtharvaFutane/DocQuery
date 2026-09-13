@@ -18,7 +18,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const BASE_DIR = path.resolve(__dirname, '../../');
-const UPLOAD_FOLDER = path.join(BASE_DIR, 'uploaded');
+const UPLOAD_FOLDER = process.env.UPLOAD_FOLDER || path.join(BASE_DIR, 'uploaded');
 
 if (!fs.existsSync(UPLOAD_FOLDER)) {
   fs.mkdirSync(UPLOAD_FOLDER, { recursive: true });
@@ -41,10 +41,15 @@ const upload = multer({
 });
 
 const app = express();
-const PORT = process.env.PORT || 8000; // Keeping 8000 to match previous FastAPI config if possible, or frontend default
+const PORT = process.env.PORT || 8000;
+
+// CORS: configurable via CORS_ORIGIN env variable (comma-separated for multiple origins)
+const corsOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',')
+  : ['http://localhost:3000', 'http://127.0.0.1:3000'];
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  origin: corsOrigins,
   credentials: true
 }));
 app.use(express.json());
@@ -255,6 +260,7 @@ app.get('/pdf/:doc_id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`MERN Backend running on port ${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`MERN Backend running on ${HOST}:${PORT}`);
 });

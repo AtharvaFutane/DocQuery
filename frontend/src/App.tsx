@@ -423,7 +423,14 @@ function AppContent() {
                   {/* Key Metrics */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {analytics.metrics.map((metric, i) => (
-                      <MetricCard key={i} {...metric} />
+                      <MetricCard
+                        key={i}
+                        label={metric.label}
+                        value={metric.value}
+                        change={metric.change}
+                        changeType={metric.change_type}
+                        icon={metric.icon}
+                      />
                     ))}
                   </div>
 

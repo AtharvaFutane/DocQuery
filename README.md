@@ -52,9 +52,8 @@ Financial professionals spend hours manually extracting data from lengthy report
 
 ### 📄 Advanced Document Processing
 - **Multi-Format Support** - PDF, DOCX, XLSX file processing
-- **Table Extraction** - Uses pdfplumber for accurate table detection with bounding boxes
-- **OCR Capabilities** - pytesseract integration for extracting text from embedded images
-- **Smart Chunking** - Structure-aware text splitting with 1500-char chunks and 200-char overlap
+- **Text Extraction** - Uses pdf-parse for PDFs, mammoth for DOCX, SheetJS for Excel
+- **Smart Chunking** - Recursive text splitting with 1000-char chunks and 200-char overlap
 
 ### 🖥️ Modern React Frontend
 - **PDF Viewer Integration** - View documents with highlighted citations
@@ -78,13 +77,13 @@ Financial professionals spend hours manually extracting data from lengthy report
 │         │                    │                        │              │
 │         │                    ▼                        ▼              │
 │         │             ┌──────────────┐     ┌──────────────────────┐ │
-│         │             │  RAG Pipeline │────▶│ MongoDB & HNSWLib  │ │
+│         │             │  RAG Pipeline │────▶│ MongoDB & MemoryVec│ │
 │         │             │ (LangChain.js)│     │  (Vector Database)   │ │
 │         │             └──────────────┘     └──────────────────────┘ │
 │         │                    │                                       │
 │         │                    ▼                                       │
 │         │             ┌──────────────┐     ┌──────────────────────┐ │
-│         └────────────▶│   Analytics  │────▶│   Grok (xAI)         │ │
+│         └────────────▶│   Analytics  │────▶│   Llama 3.1          │ │
 │                       │    Engine    │     │   via Groq API       │ │
 │                       └──────────────┘     └──────────────────────┘ │
 │                                                                      │
@@ -97,8 +96,8 @@ Financial professionals spend hours manually extracting data from lengthy report
 |-------|------------|
 | **Frontend** | React 19, TypeScript, TailwindCSS, Framer Motion, Recharts |
 | **Backend** | Node.js, Express.js |
-| **Database** | MongoDB (Mongoose), HNSWLib (Vector Store) |
-| **AI/ML** | LangChain.js, xAI Grok (via Groq API SDK), HuggingFace Transformers |
+| **Database** | MongoDB (Mongoose), MemoryVectorStore (LangChain In-Memory) |
+| **AI/ML** | LangChain.js, Llama 3.1 8B (via Groq API), Xenova/all-MiniLM-L6-v2 Embeddings |
 | **Document Processing** | pdf-parse, mammoth, xlsx |
 | **Deployment** | Vercel, AWS Amplify |
 
@@ -225,7 +224,7 @@ View AI-generated insights including:
 - **Document Processing**: ~2-5 seconds for typical 50-page PDF
 - **Query Response**: ~1-3 seconds with citations
 - **Analytics Generation**: ~3-5 seconds per document
-- **Embedding Model**: `all-mpnet-base-v2` (768 dimensions)
+- **Embedding Model**: `Xenova/all-MiniLM-L6-v2` (384 dimensions)
 
 ---
 
